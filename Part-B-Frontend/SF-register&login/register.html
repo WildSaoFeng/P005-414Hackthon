@@ -1,0 +1,97 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<!DOCTYPE html>
+<!--[if lt IE 7 ]> <html lang="en" class="no-js ie6 lt8"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="no-js ie7 lt8"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="no-js ie8 lt8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="UTF-8" />
+    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">  -->
+    <title>Login and Registration Form with HTML5 and CSS3</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap-grid.min.css" />
+    <link href="signin.css" rel="stylesheet">
+    <script src="register&login.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <header>
+        <h1>欢迎来到块链爱！</h1>
+
+    </header>
+    <section>
+        <div id="container_demo" >
+            <!-- hidden anchor to stop jump http://www.css3create.com/Astuce-Empecher-le-scroll-avec-l-utilisation-de-target#wrap4  -->
+            <a class="hiddenanchor" id="toregister"></a>
+            <a class="hiddenanchor" id="tologin"></a>
+            <div id="wrapper">
+                <div id="login" class="animate form">
+                    <form name="loginForm" action="" method="post" autocomplete="on">
+                        <h1>登陆</h1>
+                        <p>
+                            <label for="username" class="uname" > 用户名 </label>
+                            <input id="username" name="username" required="required" type="text" placeholder="请输入您的用户名"/>
+                        </p>
+                        <p>
+                            <label for="password" class="youpasswd"> 密码 </label>
+                            <input id="password" name="password" required="required" type="password" placeholder="请输入您的密码" />
+                        </p>
+                        <p class="keeplogin">
+                            <input type="checkbox" name="loginkeeping" id="loginkeeping" value="loginkeeping" />
+                            <label for="loginkeeping">记住我的账户和密码</label>
+                        </p>
+                        <p class="login button">
+                            <input type="submit" onclick="submitLogin()" value="立刻登陆"/>
+                        </p>
+                        <p class="change_link">
+                            还不是会员？
+                            <a href="#toregister" class="to_register">立刻注册</a>
+                        </p>
+                    </form>
+                </div>
+
+                <div id="register" class="animate form">
+                    <form  action="mysuperscript.php" autocomplete="on">
+                        <h1> 注册 </h1>
+                        <p>
+                            <label for="usernamesignup" class="uname" >您的用户名</label>
+                            <input id="usernamesignup" name="usernamesignup" required="required" type="text" placeholder="WildSaoFeng" />
+                        </p>
+                        <p>
+                            <label for="passwordsignup" class="youpasswd" >请输入密码</label>
+                            <input id="passwordsignup" name="passwordsignup" required="required" type="password" placeholder="例如： X8df!90EO"/>
+                        </p>
+                        <p>
+                            <label for="passwordsignup_confirm" class="youpasswd" >请确认您的密码</label>
+                            <input id="passwordsignup_confirm" name="passwordsignup_confirm" required="required" type="password" placeholder="例如： X8df!90EO"/>
+                        </p>
+
+                        <div class="form-group">
+                            <label for="country" class="control-label">性别</label>
+                            <select id="country" class="form-control">
+                                <option>蓝（男）孩纸！</option>
+                                <option>绿（女）孩纸！</option>
+                                <option>我就不告诉你！（保密）</option>
+                            </select>
+                        </div>
+
+                        <p class="signin button">
+                            <input type="submit" value="立刻注册"/>
+                        </p>
+                        <p class="change_link">
+                            已经是会员了？
+                            <a href="#tologin" class="to_register"> 去登录吧 </a>
+                        </p>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</div>
+</body>
+</html>
