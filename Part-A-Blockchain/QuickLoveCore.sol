@@ -376,7 +376,6 @@ contract ClockAuctionBase {
 
     // Cut owner takes on each auction, measured in basis points (1/100 of a percent).
     // Values 0-10,000 map to 0%-100%
-	// 费率
     uint256 public ownerCut;
 
     // Map from token ID to their corresponding auction.
@@ -396,7 +395,6 @@ contract ClockAuctionBase {
     /// @dev Escrows the NFT, assigning ownership to this contract.
     /// Throws if the escrow fails.
     /// @param _tokenId - ID of token whose approval to verify.
-	/// 将猫托管至合约
     function _escrow(uint256 _tokenId) internal {
         // it will throw if transfer fails
         nonFungibleContract.takeOwnership(_tokenId);
@@ -406,7 +404,6 @@ contract ClockAuctionBase {
     /// Returns true if the transfer succeeds.
     /// @param _receiver - Address to transfer NFT to.
     /// @param _tokenId - ID of token to transfer.
-	/// 转移猫的归属。
     function _transfer(address _receiver, uint256 _tokenId) internal {
         // it will throw if transfer fails
         nonFungibleContract.transfer(_receiver, _tokenId);
@@ -416,7 +413,6 @@ contract ClockAuctionBase {
     ///  AuctionCreated event.
     /// @param _tokenId The ID of the token to be put on auction.
     /// @param _auction Auction to add.
-	/// 添加拍卖，发出拍卖已创建事件
     function _addAuction(uint256 _tokenId, Auction _auction) internal {
         // Require that all auctions have a duration of
         // at least one minute. (Keeps our math from getting hairy!)
@@ -433,7 +429,6 @@ contract ClockAuctionBase {
     }
 
     /// @dev Cancels an auction unconditionally.
-	/// 取消拍卖，同时把猫转移给卖家
     function _cancelAuction(uint256 _tokenId, address _seller) internal {
         _removeAuction(_tokenId);
         _transfer(_seller, _tokenId);
@@ -442,7 +437,6 @@ contract ClockAuctionBase {
 
     /// @dev Computes the price and transfers winnings.
     /// Does NOT transfer ownership of token.
-	/// 竞拍，成功则转移钱，但不转移猫的所有权。
     function _bid(uint256 _tokenId, uint256 _bidAmount)
         internal
         returns (uint256)
@@ -491,7 +485,6 @@ contract ClockAuctionBase {
         // is anything worth worrying about, transfer it back to bidder.
         // NOTE: We checked above that the bid amount is greater than or
         // equal to the price so this cannot underflow.
-		// 计算竞拍价格超出的部分，并在下面退回
         uint256 bidExcess = _bidAmount - price;
 
         // Return the funds. Similar to the previous transfer, this is
@@ -521,7 +514,6 @@ contract ClockAuctionBase {
     ///  functions (this one, that computes the duration from the auction
     ///  structure, and the other that does the price computation) so we
     ///  can easily test that the price computation works correctly.
-	/// 计算当前价格，分两部分，计算竞拍时长，然后计算当前价格。
     function _currentPrice(Auction storage _auction)
         internal
         view
@@ -619,7 +611,6 @@ contract SaleClockAuction is Pausable, ClockAuctionBase {
     ///  as well as any Ether sent directly to the contract address.
     ///  Always transfers to the NFT contract, but can be called either by
     ///  the owner or the NFT contract.
-	/// 取回合约中的资金，发送给代币合约。
     function withdrawBalance() external {
         address nftAddress = address(nonFungibleContract);
 
@@ -628,7 +619,6 @@ contract SaleClockAuction is Pausable, ClockAuctionBase {
             msg.sender == nftAddress
         );
         // We are using this boolean method to make sure that even if one fails it will still work
-		// send 即使出错也不会throw，而是返回false，用transfer则不行。
         bool res = nftAddress.send(this.balance);
     }
 
@@ -670,7 +660,6 @@ contract SaleClockAuction is Pausable, ClockAuctionBase {
     /// @dev Bids on an open auction, completing the auction and transferring
     ///  ownership of the NFT if enough Ether is supplied.
     /// @param _tokenId - ID of token to bid on.
-	/// 竞拍。竞拍成功，转移ether，转移猫
     function bid(uint256 _tokenId)
         external
         payable
@@ -686,7 +675,6 @@ contract SaleClockAuction is Pausable, ClockAuctionBase {
     /// @notice This is a state-modifying function that can
     ///  be called while the contract is paused.
     /// @param _tokenId - ID of token on auction
-	/// 取消拍卖。发起人是卖家。
     function cancelAuction(uint256 _tokenId)
         external
     {
